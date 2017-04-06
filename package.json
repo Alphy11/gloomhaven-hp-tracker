@@ -1,0 +1,17 @@
+{
+  "name": "goolhaven-hp-tracker",
+  "version": "0.0.0",
+  "description": "A comapnion web app for gloomhaven for whole aprty hp tracking",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "gloomhaven",
+    "graphql",
+    "graph.cool",
+    "apollo"
+  ],
+  "author": "Tom Williams",
+  "license": "UNLICENSED"
+}
