@@ -1,0 +1,44 @@
+type File {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  secret: String!
+  size: Int!
+  updatedAt: DateTime!
+  url: String!
+}
+
+type Monster {
+  createdAt: DateTime!
+  elite: Boolean!
+  hp: Int!
+  id: ID!
+  maxHp: Int!
+  monsterGroup: MonsterGroup @relation(name: "MonsterGroupOnMonster")
+  number: Int!
+  statusEffects: [MONSTER_STATUS_EFFECTS!]
+  updatedAt: DateTime!
+}
+
+type MonsterGroup {
+  createdAt: DateTime!
+  id: ID!
+  monsters: [Monster!]! @relation(name: "MonsterGroupOnMonster")
+  type: MONSTER_GROUP_TYPE
+  updatedAt: DateTime!
+}
+
+type Post {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  imageUrl: String
+  updatedAt: DateTime!
+}
+
+type User {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}

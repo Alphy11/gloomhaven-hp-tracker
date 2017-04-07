@@ -1,0 +1,52 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:airbnb/recommended",
+    "plugin:react-with-styles/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-with-styles",
+    "airbnb",
+    "import",
+    "flowtype"
+  ],
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  // "rules": {
+  //   "import/order": [
+  //     2, {
+  //       "newlines-between": "always",
+  //       "groups": [
+  //         ["builtin", "external"],
+  //         "internal",
+  //         "parent",
+  //         "sibling",
+  //         "index"
+  //       ]
+  //     }],
+  //   "sort-keys": [2, "asc", {"caseSensitive": true, "natural": false}]
+  // },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
+    "generators": true,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": false,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "restParams": true,
+    "spread": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "jsx": true
+  }
+}
