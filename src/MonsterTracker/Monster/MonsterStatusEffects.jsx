@@ -1,6 +1,7 @@
 import React from 'react';
-import { css, createStyleSheet } from '../Util/css';
 import gql from 'graphql-tag';
+
+import { css, createStyleSheet } from 'Util/css';
 
 const styles = createStyleSheet({
   top: {
@@ -35,22 +36,14 @@ const styles = createStyleSheet({
   }
 });
 
-
-
-class MonsterStatusEffects extends React.Component {
-  render() {
-    const { monster } = this.props;
-    let { effects } = monster;
-    effects = effects || ["Strengthened"];
-    return (
-      <div {...css(styles.top)}>
-        {effects.map( effect => {
-            const cssRes = {...css(styles.circle, styles[effect])};
-            return <div {...cssRes} key={effect}/>
-          })
-        }
-      </div>);
-  }
+function MonsterStatusEffects({ monster }) {
+  let { effects } = monster;
+  effects = effects || ["Strengthened"];
+  return (
+    <div {...css(styles.top)}>
+      { effects.map( effect =>
+          <div {...css(styles.circle, styles[effect])} key={effect}/>) }
+    </div>);
 }
 
 MonsterStatusEffects.fragments = {

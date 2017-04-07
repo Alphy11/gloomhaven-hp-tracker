@@ -1,30 +1,37 @@
+import gql from 'graphql-tag';
+import * as queryTransforms from './queryTransforms';
+import {
+  findValueIndex,
+  addValue,
+  updateValue,
+  removeValue
+} from 'Util/list';
+// Keep as *, if imported with {}, we get an undefined error in subscribeToData.
+
 function unsbuscribe(subscription) {
   subscription();
 }
 
-function findValueIndex(list, newValue) {
-  return list.findIndex((entry) => entry.id === newValue.id)
+export function subscribeToData(component, query, propsToVariables) {
+  const {
+    linkedProp,
+    unaliasedProp,
+    componentWillRecieveProps,
+    fragments,
+  } = component;
+
+   const queryWithFragments = queryTransforms.fragmentsAsString(fragments, query);
+
+   const newWillRecieveProps = (newProps) => {
+     componentWillRecieveProps(newProps);
+     setupSubscription(component, linkedProp, newProps, query, unaliasedProp, propsToVariables);
+   }
+
+   return Object.assign(component, newWillRecieveProps);
 }
-
-function addValue(list, newValue) {
-  return placeValuesAtIndex(list, [newValue], list.length);
-}
-
-function updateValue(list, newValue) {
-  return placeValuesAtIndex(list, [newValue], findValueIndex(list, newValue))
-}
-
-function removeValue(list, oldValue) {
-  return placeValuesAtIndex(list, [], findValueIndex(list, oldValue));
-
-}
-
-function placeValuesAtIndex(list, values, index) {
-  return [...list.slice(0,index), ...values, ...list.slice(index+1)];
-}
-
 
 export default function setupSubscription(component, propName, newProps, query, DataObjectName) {
+  propsToOptions = component.propsToOptions || ( () => ({}) );
   if (!newProps.data.loading) {
       if (component.subscription) {
         if (newProps.data.allPosts !== component.props.data.allPosts) {
@@ -35,9 +42,10 @@ export default function setupSubscription(component, propName, newProps, query, 
           return
         }
       }
+
       component.subscription = newProps.data.subscribeToMore({
         document: query,
-        variables: null,
+        variables: { ...propsToOptions(newProps) },
 
         updateQuery: ({[propName]: prevEntries}, {subscriptionData: newData}) => {
           const newObj = newData.data[DataObjectName]

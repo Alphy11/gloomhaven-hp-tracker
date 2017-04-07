@@ -1,10 +1,14 @@
 import React from 'react';
-import Monster from './Monster.jsx';
-import { css, createStyleSheet } from '../Util/css';
-
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import subscriptionSetup from './subscriptionSetup';
+
+import subscriptionSetup, { subscribeToData } from 'Util/graphql/subscribe';
+import { css, createStyleSheet } from 'Util/css';
+import { getAndSubscribeToAllInGroup } from 'Util/graphql/createGraphCoolQueries';
+import subscribeTo from 'Util/subscribeTo';
+import Section from 'Util/Section';
+
+import Monster from './Monster';
 
 const styles = createStyleSheet({
   top: {
@@ -13,91 +17,36 @@ const styles = createStyleSheet({
   },
 });
 
-const propName = "allMonsters";
-// TODO: CHANGE QUERY SO WE GET UPDATED MONSTERS, WE SHOULD NOT BE QUERYING THE GROUP ITSELF, THAT SHOULD BE PASSED IN
-class MonsterGroup extends React.Component {
-  componentWillReceiveProps(newProps) {
-    const id = this.props.monsterGroup.id;
-    if(!id) {
-      return;
-    }
-
-    const query = gql`
-      subscription {
-        Monster(
-          filter: {
-            mutation_in: [CREATED, UPDATED, DELETED],
-            node: {
-              monsterGroup: {
-                id: "${id}"
-              }
-            }
-          }
-        ) {
-          node {
-            id,
-            ...monsterInfo
-          },
-          mutation,
-          previousValues {
-            id
-          }
-        }
-      }
-      ${Monster.fragments.monsterInfo}`;
-    subscriptionSetup(this, propName, newProps, query, "Monster");
-  }
-
-  render() {
-    const {
-      data,
-      monsterGroup
-    } = this.props;
-    const {
-      [propName]: monsters
-    } = data;
-
-    if(!monsters) {
-      return null;
-    }
-
+function MonsterGroup({ data, monsterGroupType, monsters }) {
     return (
     <div {...css(styles.top)}>
-      <h2>{monsterGroup.type}</h2>
+      <h2>{monsterGroupType}</h2>
       {monsters.slice()
         .sort( (m1, m2) => m1.number > m2.number)
         .map(
           (monster) =>
-            <Monster
-              monster={monster}
-              key={monster.id}
-            />
-      )}
+            <Section key={monster.id}>
+              <Monster monster={monster} />
+            </Section>)}
     </div>);
-  }
 }
 
-const MonstersQuery = gql`
-  query monsters($id: ID){
-    ${propName}(
-      filter: {
-        monsterGroup: {
-          id: $id
-        }
-    }) {
+MonsterGroup.fragments = {
+  monsterInfoWithId: gql`
+    fragment monsterInfoWithId on Monster {
       id,
       ...monsterInfo
     }
-  }
-  ${Monster.fragments.monsterInfo}`
+    ${Monster.fragments.monsterInfo}`,
+}
 
-const MonsterGroupWithData = graphql(MonstersQuery, {
-  options: ({ monsterGroup }) =>
-    ({
-      variables: {
-        id: monsterGroup.id
-      }
-    }),
-})(MonsterGroup)
+MonsterGroup.propsToOptions = ({ id }) =>
+  ({
+    variables: {
+      id: id
+    }
+  });
 
-export default MonsterGroupWithData;
+//const MonsterGroupWithSubscription = ;
+
+export default subscribeTo("Monster", "monsterGroup")(MonsterGroup); //MonsterGroup;

@@ -6,7 +6,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 import MonsterTracker from './MonsterTracker'
-import { uri, wsUri } from '../endpoint.js';
+import { uri, wsUri } from '../endpoint';
 
 const networkInterface = createNetworkInterface({ uri })
 const wsClient = new SubscriptionClient(wsUri);

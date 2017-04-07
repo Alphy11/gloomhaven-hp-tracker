@@ -37,6 +37,9 @@ module.exports = {
     ],
   },
   resolve: {
+    alias: {
+      Util: path.join(__dirname, 'src', 'Util'),
+    },
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
