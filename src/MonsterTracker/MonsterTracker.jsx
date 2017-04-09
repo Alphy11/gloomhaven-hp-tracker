@@ -1,33 +1,15 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import {withRouter} from 'react-router';
-
-import subscriptionSetup from 'Util/graphql/subscribe';
+import { withRouter } from 'react-router';
 
 import MonsterGroup from './MonsterGroup';
+import AllMonsterGroupsContainer from '../Containers/AllMonsterGroupsContainer';
 
 class MonsterTracker extends React.Component {
 
-  componentWillReceiveProps(newProps) {
-    const query = gql`
-      subscription {
-        MonsterGroup(filter: {mutation_in: [CREATED, UPDATED, DELETED]}) {
-          node {
-            ...monsterGroupInfo
-          },
-          mutation,
-          previousValues {
-            id
-          }
-        }
-      }
-      ${MonsterTracker.fragments.monsterGroup}`;
-    //subscriptionSetup(this, MonsterTracker.propName, newProps, query, "MonsterGroup");
-  }
-
   render() {
-    const monsterGroups = this.props.data[MonsterTracker.propName] || [];
+    const monsterGroups = this.props.monsterGroups;
     return (
       <div>
         {monsterGroups.map(
@@ -42,30 +24,13 @@ class MonsterTracker extends React.Component {
   }
 }
 
-MonsterTracker.propName = "allMonsterGroups";
-
-MonsterTracker.propTypes = {
-    data: React.PropTypes.object,
-  }
-
-MonsterTracker.fragments = {
+const fragments = {
   monsterGroup: gql`
     fragment monsterGroupInfo on MonsterGroup {
       id,
       type
     }`,
 };
+const MonsterTrackerWithSubscription = AllMonsterGroupsContainer(MonsterTracker, fragments.monsterGroup, 'monsterGroupInfo');
 
-const MonsterGroupQuery = gql`
-  query {
-    ${MonsterTracker.propName}: allMonsterGroups {
-      ...monsterGroupInfo
-    }
-  }
-  ${MonsterTracker.fragments.monsterGroup}`;
-
-const MonsterTrackerWithData = graphql(MonsterGroupQuery)(MonsterTracker)
-
-// const DetailPageWithDelete = graphql(deleteMutation)(DetailPageWithData)
-
-export default withRouter(MonsterTrackerWithData)
+export default withRouter(MonsterTrackerWithSubscription)

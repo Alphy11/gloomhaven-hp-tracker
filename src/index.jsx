@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, Switch } from 'react-router';
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createHashHistory';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
@@ -22,8 +22,9 @@ ReactDOM.render((
   <ApolloProvider client={client}>
     <Router history={createHistory()}>
       <Switch>
-        <Route path='/mobile' component={MonsterTracker} />
-        <Route path='/' component={MobileMonsterTracker} />
+        <Route path='/nonmobile' component={MonsterTracker} />
+        <Route path='/mobile' component={MobileMonsterTracker} />
+        <Route path='/' component={MonsterTracker} />
       </Switch>
     </Router>
   </ApolloProvider>

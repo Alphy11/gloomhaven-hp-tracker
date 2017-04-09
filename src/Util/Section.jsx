@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { css, createStyleSheet } from '../Util/css';
 
 function Section({children, sectionsTaken, totalSections}) {
@@ -17,9 +18,9 @@ function Section({children, sectionsTaken, totalSections}) {
 }
 
 Section.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  sectionsTaken: React.PropTypes.number,
-  totalSections: React.PropTypes.number,
+  children:       PropTypes.node.isRequired,
+  sectionsTaken:  PropTypes.number,
+  totalSections:  PropTypes.number,
 }
 
 Section.defaultProps = {

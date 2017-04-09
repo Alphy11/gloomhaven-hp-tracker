@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { css, createStyleSheet } from '../Util/css';
 
 function Row({children}) {
@@ -12,7 +13,7 @@ function Row({children}) {
 }
 
 Row.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Row;

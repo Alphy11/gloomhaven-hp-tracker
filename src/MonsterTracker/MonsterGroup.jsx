@@ -14,6 +14,7 @@ import {
 } from 'Util/list';
 
 import Monster from './Monster';
+import MonsterGroupContainer from '../Containers/MonsterGroupContainer';
 
 const styles = createStyleSheet({
   top: {
@@ -23,17 +24,12 @@ const styles = createStyleSheet({
 });
 
 class MonsterGroup extends React.Component {
-  componentWillMount() {
-    this.props.subscribeToMonsters({
-            id: this.props.id,
-        });
-  }
   render(){
-    const { monsterGroupType, monsters } = this.props;
-    const { allMonsters: monsterList } = monsters;
-    if(!monsterList) {
-      return null;
-    }
+    const {
+      monsterGroupType,
+      monsters: monsterList,
+    } = this.props;
+
     return (
       <div {...css(styles.top)}>
         <h2>{monsterGroupType}</h2>
@@ -48,20 +44,6 @@ class MonsterGroup extends React.Component {
   }
 }
 
-const MONSTER_QUERY = gql`
-  query monsters($id: ID!) {
-    allMonsters: allMonsters(
-      filter: {
-        monsterGroup: {
-          id: $id
-        }
-      }) {
-        id
-        ...monsterInfo
-    }
-  }
-  ${Monster.fragments.monsterInfo}`;
-
 MonsterGroup.fragments = {
   monsterInfoWithId: gql`
     fragment monsterInfoWithId on Monster {
@@ -71,84 +53,7 @@ MonsterGroup.fragments = {
     ${Monster.fragments.monsterInfo}`,
 }
 
-const MONSTER_SUBSCRIPTION = gql`
-subscription ($id: ID!) {
-  Monster(
-    filter: {
-      mutation_in: [CREATED, UPDATED, DELETED],
-			node: {
-        monsterGroup: {
-          id: $id
-        }
-      }
-    }
-  ) {
-    node {
-      id,
-      ...monsterInfo
-    },
-    mutation,
-    previousValues {
-      id
-    }
-  }
-}
-  ${Monster.fragments.monsterInfo}`;
-
-
-function optionsFunction(params){
-  return {
-      id: params.id,
-  }
-}
-
-const withData = graphql(MONSTER_QUERY, {
-    name: 'monsters',
-    options: optionsFunction,
-    props: props => {
-      return {
-        monsters: props.monsters,
-        subscribeToMonsters: params => {
-          return props.monsters.subscribeToMore({
-            document: MONSTER_SUBSCRIPTION,
-            variables: optionsFunction(props.ownProps),
-            updateQuery: (prev, {subscriptionData}) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
-              const prevEntries = prev.allMonsters;
-              const newMonster = subscriptionData.data.Monster;
-              const { mutation, previousValues, node } = newMonster;
-              let retList;
-              switch (mutation) {
-              case "CREATED":
-                retList = addValue(prevEntries, node);
-                break;
-              case "UPDATED":
-                retList = updateValue(prevEntries, node);
-                break;
-              case "DELETED":
-                retList = removeValue(prevEntries, node);
-                break;
-              default:
-                retList = prevEntries;
-              }
-
-              return {
-                ...prev,
-                allMonsters: retList,
-              }
-            }
-          });
-        }
-      }
-    }
-});
-
-
-
-
-const MonsterGroupWithData = withData(MonsterGroup);
+const MonsterGroupWithData = MonsterGroupContainer(MonsterGroup, MonsterGroup.fragments.monsterInfoWithId, "monsterInfoWithId");
 
 
 //const MonsterGroupWithData = subscribeToData("Monster", "monsterGroup")(MonsterGroup); //MonsterGroup;
