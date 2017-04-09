@@ -23,7 +23,7 @@ class MonsterTracker extends React.Component {
         }
       }
       ${MonsterTracker.fragments.monsterGroup}`;
-    subscriptionSetup(this, MonsterTracker.propName, newProps, query, "MonsterGroup");
+    //subscriptionSetup(this, MonsterTracker.propName, newProps, query, "MonsterGroup");
   }
 
   render() {
@@ -35,7 +35,6 @@ class MonsterTracker extends React.Component {
             <MonsterGroup
               id={id}
               monsterGroupType={type}
-              monsters={monsters}
               key={id} />
         )}
       </div>
@@ -53,12 +52,8 @@ MonsterTracker.fragments = {
   monsterGroup: gql`
     fragment monsterGroupInfo on MonsterGroup {
       id,
-      type,
-      monsters {
-        ...monsterInfoWithId
-      }
-    }
-    ${MonsterGroup.fragments.monsterInfoWithId}`,
+      type
+    }`,
 };
 
 const MonsterGroupQuery = gql`

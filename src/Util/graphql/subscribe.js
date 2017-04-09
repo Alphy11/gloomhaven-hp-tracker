@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import React from 'react';
 import * as queryTransforms from './queryTransforms';
 import {
   findValueIndex,
@@ -6,49 +7,56 @@ import {
   updateValue,
   removeValue
 } from 'Util/list';
+
 // Keep as *, if imported with {}, we get an undefined error in subscribeToData.
 
 function unsbuscribe(subscription) {
   subscription();
 }
 
-export function subscribeToData(component, query, propsToVariables) {
-  const {
-    linkedProp,
-    unaliasedProp,
-    componentWillRecieveProps,
-    fragments,
-  } = component;
+export function subscribeToData(objectName, relationName) {
+    return function (Wrappedcomponent) {
+      return class subscriptionHOC extends React.Component {
+        static get fragments(){
+          return Wrappedcomponent.fragments
+        }
 
-   const queryWithFragments = queryTransforms.fragmentsAsString(fragments, query);
+        static get displayName() {
+          return `subscriptionHOC(${Wrappedcomponent.name}`
+        }
 
-   const newWillRecieveProps = (newProps) => {
-     componentWillRecieveProps(newProps);
-     setupSubscription(component, linkedProp, newProps, query, unaliasedProp, propsToVariables);
+        componentWillReceiveProps(newProps) {
+          setupSubscription(Wrappedcomponent, newProps, objectName, relationName);
+        }
+
+        render() {
+          return <Wrappedcomponent {...this.props} />
+        }
+      }
    }
-
-   return Object.assign(component, newWillRecieveProps);
 }
 
-export default function setupSubscription(component, propName, newProps, query, DataObjectName) {
-  propsToOptions = component.propsToOptions || ( () => ({}) );
+export default function setupSubscription(WrappedComponent, newProps, objectName, relationName) {
+  propsToOptions = WrappedComponent.propsToOptions || ( (props) => props );
+  const query = subscriptionQuery(WrappedComponent.fragments, objectName, relationName);
+
   if (!newProps.data.loading) {
-      if (component.subscription) {
-        if (newProps.data.allPosts !== component.props.data.allPosts) {
+      if (WrappedComponent.subscription) {
+        if (newProps.data.allPosts !== WrappedComponent.props.data.allPosts) {
           // if the feed has changed, we need to unsubscribe before resubscribing
-          unsbuscribe(component.subscription);
+          unsbuscribe(WrappedComponent.subscription);
         } else {
           // we already have an active subscription with the right params
           return
         }
       }
 
-      component.subscription = newProps.data.subscribeToMore({
+      WrappedComponent.subscription = newProps.data.subscribeToMore({
         document: query,
         variables: { ...propsToOptions(newProps) },
 
-        updateQuery: ({[propName]: prevEntries}, {subscriptionData: newData}) => {
-          const newObj = newData.data[DataObjectName]
+        updateQuery: ({[objectName]: prevEntries}, {subscriptionData: newData}) => {
+          const newObj = newData.data[objectName]
           const newEntry = newObj.node;
           const mutatedValues = newObj.previousValues;
           const mutation = newObj.mutation;
@@ -69,7 +77,7 @@ export default function setupSubscription(component, propName, newProps, query, 
           }
 
           const retVal = {
-            [propName]: retList,
+            [objectName]: retList,
           }
           return retVal;
         },
@@ -79,3 +87,29 @@ export default function setupSubscription(component, propName, newProps, query, 
     }
 }
 
+function subscriptionQuery(fragments, type, relationName) {
+  const fragmentsAsQuery = queryTransforms.allFragmentsAsQuery(fragments);
+
+  const subscriptionTemplate =
+    `subscription ($id: ID!) {
+      ${type}(
+        filter: {
+          mutation_in: [CREATED, UPDATED, DELETED],
+          node: {
+            ${relationName}: {
+              id: $id
+            }
+          }
+        }
+      ) {
+        node {
+          ${fragmentsAsQuery}
+        },
+        mutation,
+        previousValues {
+          id
+        }
+      }
+    }`
+  return queryTransforms.queryWithFragments(fragments, subscriptionTemplate);
+}
