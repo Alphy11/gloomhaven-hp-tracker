@@ -12,14 +12,20 @@ const styles = createStyleSheet( {
     margin: 'auto',
     textAlign: 'center',
     verticalAlign: 'middle',
+  },
+  button: {
+    width: '100%',
+    height: '100%',
   }
 })
 
-function AddMonsterButton() {
+function AddMonsterButton({ toggle }) {
   return (
     <ListRow addedStyles={[styles.addMonsterButton]}>
-      <div {...css(styles.text)}>
-        Add Monster
+      <div {...css(styles.button)} onClick={() => toggle(true)}>
+        <div {...css(styles.text)}>
+          Add Monster
+        </div>
       </div>
     </ListRow>);
 }
