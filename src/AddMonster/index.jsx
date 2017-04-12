@@ -26,6 +26,7 @@ class AddMonster extends React.Component {
     this.trackElites = this.trackElites.bind(this);
     this.trackHp = this.trackHp.bind(this);
     this.submit = this.submit.bind(this);
+    this.close = this.close.bind(this);
   }
 
 
@@ -69,6 +70,11 @@ class AddMonster extends React.Component {
           elite: index > normals - 1,
         })
     );
+    this.close();
+  }
+
+  close() {
+    this.props.toggle(false);
   }
 
   render(){
@@ -76,7 +82,7 @@ class AddMonster extends React.Component {
     const { group } = this.props;
     return (
       <div>
-        <div {...css(styles.closeButton)} onClick={() => this.props.toggle(true)}> <h3>X</h3> </div>
+        <div {...css(styles.closeButton)} onClick={this.close}> <h3>X</h3> </div>
         <div>
           <h1>Type: </h1><Input onChange={this.trackType} value={type} defaultText="BanditGuard"/>
         </div>
