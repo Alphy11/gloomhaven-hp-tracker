@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import createContainer, { Query } from './createContainer';
 
-import subscriptionSetup, { subscribeToData } from 'Util/graphql/subscribe';
+import { subscribeToData } from 'Util/subscribe';
 import {
   findValueIndex,
   addValue,

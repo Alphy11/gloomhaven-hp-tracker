@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import subscriptionSetup, { subscribeToData } from 'Util/graphql/subscribe';
+import { subscribeToData } from 'Util/subscribe';
 import { css, createStyleSheet } from 'Util/css';
 import Section from 'Util/Section';
 import {
@@ -52,9 +52,4 @@ MonsterGroup.fragments = {
     ${Monster.fragments.monsterInfo}`,
 }
 
-const MonsterGroupWithData = MonsterGroupContainer(MonsterGroup, MonsterGroup.fragments.monsterInfoWithId, "monsterInfoWithId");
-
-
-//const MonsterGroupWithData = subscribeToData("Monster", "monsterGroup")(MonsterGroup); //MonsterGroup;
-
-export default MonsterGroupWithData;
+export default MonsterGroupContainer(MonsterGroup, MonsterGroup.fragments.monsterInfoWithId, "monsterInfoWithId");
