@@ -1,6 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import ListRow from './ListRow';
+import ListItem from './ListItem';
 import ListSection from './ListSection';
 import MonsterGroupContainer from '../Containers/MonsterGroupContainer'
 
@@ -11,9 +11,9 @@ function MonsterListRow({ monster }) {
   } = monster;
 
   return (
-    <div>
+    <ListItem>
       <ListSection>{number}</ListSection>
-    </div>);
+    </ListItem>);
 }
 
 MonsterListRow.fragments = {

@@ -10,7 +10,7 @@ function MonsterGroupList({ monsters, type }) {
   return (
     <div>
       <ListHeader>TYPE: {type}</ListHeader>
-      {monsters.length && monsters.map(monster => <MonsterListRow key={monster.id} monster={monster} />)}
+      {!!monsters.length && monsters.map(monster => <MonsterListRow key={monster.id} monster={monster} />)}
     </div>);
 }
 

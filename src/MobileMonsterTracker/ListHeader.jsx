@@ -1,5 +1,5 @@
 import React from 'react';
-import ListRow from './ListRow';
+import ListRow from './ListItem';
 
 function ListHeader({ children }) {
   return (

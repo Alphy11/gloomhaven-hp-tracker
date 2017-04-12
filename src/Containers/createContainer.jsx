@@ -41,7 +41,7 @@ function createContainer(
                 retList = updateValue(prevEntries, node);
                 break;
               case "DELETED":
-                retList = removeValue(prevEntries, node);
+                retList = removeValue(prevEntries, previousValues);
                 break;
               default:
                 retList = prevEntries;

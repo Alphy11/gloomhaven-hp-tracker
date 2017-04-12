@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 
 import subscriptionSetup, { subscribeToData } from 'Util/graphql/subscribe';
 import { css, createStyleSheet } from 'Util/css';
-import { getAndSubscribeToAllInGroup } from 'Util/graphql/createGraphCoolQueries';
 import Section from 'Util/Section';
 import {
   findValueIndex,
