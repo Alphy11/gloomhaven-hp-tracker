@@ -8,13 +8,15 @@ const styles = createStyleSheet({
     width: '100%',
     height: '15px',
     display: 'inline-block',
+    paddingTop:'5px',
   },
   circle: {
-     width: '10px',
-     height: '10px',
+     width: '25px',
+     height: '25px',
      margin: 'auto',
      borderRadius: '50%',
      backgroundColor: 'blue',
+     float: 'left',
   },
   Stunned: {
     backgroundColor: '#0000FF',
@@ -37,8 +39,8 @@ const styles = createStyleSheet({
 });
 
 function MonsterStatusEffects({ monster }) {
-  let { effects } = monster;
-  effects = effects || ["Strengthened"];
+  let { statusEffects } = monster;
+  const effects = statusEffects || ["Strengthened"];
   return (
     <div {...css(styles.top)}>
       { effects.map( effect =>

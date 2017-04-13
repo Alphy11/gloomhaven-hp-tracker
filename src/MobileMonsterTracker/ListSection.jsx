@@ -4,14 +4,22 @@ import { css, createStyleSheet } from 'Util/css';
 
 const totalSections = 12;
 
+const styles = createStyleSheet({
+  section: {
+    height: '100%',
+    float: 'left',
+    display: 'inline-block',
+  }
+});
+
 function ListSection({ children, sections }) {
-  const styles = createStyleSheet({
-    section: {
-      width: '${sections/totalSections}%',
+  const dynamicStyles = createStyleSheet({
+    sectionWidth: {
+      width: `${sections/totalSections * 100}%`,
     }
   })
 
-  return <div {...css(styles.section)}>{children}</div>
+  return <div {...css(dynamicStyles.sectionWidth, styles.section)}>{children}</div>
 }
 
 ListSection.propTypes = {

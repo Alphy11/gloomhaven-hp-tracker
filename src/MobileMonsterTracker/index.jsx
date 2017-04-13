@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 
 const styles = createStyleSheet({
   top: {
-    margin: '-8px',
+    margin: '-8px -8px -8px -8px',
   }
 })
 
