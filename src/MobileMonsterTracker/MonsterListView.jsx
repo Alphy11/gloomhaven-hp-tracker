@@ -50,7 +50,10 @@ const fragments = {
   monsterListView: gql`
     fragment monsterListView on MonsterGroup {
       id,
-      type
+      type,
+      monsters {
+        number
+      }
     }`,
 };
 

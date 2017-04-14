@@ -44,6 +44,7 @@ export default function createAddMonsterContainer(WrappedComponent) {
       this.createInputProps = this.createInputProps.bind(this);
       this.submit = this.submit.bind(this);
       this.close = this.close.bind(this);
+      this.shift = 1;
     }
 
     createInputProps(name, isNumber) {
@@ -66,13 +67,18 @@ export default function createAddMonsterContainer(WrappedComponent) {
     }
 
     submit(){
-      const { hp, types, normals, elites } = this.state;
+      let { hp, types, normals, elites } = this.state;
+      const monsterNumbers = this.props.group.monsters.map(m => m.number);
+      const availableNumbers =
+        Array(normals + elites + monsterNumbers.length).fill()
+          .map((_, idx) => idx).filter(v => !monsterNumbers.includes(v));
+      this.shift = 1;
       Array(normals + elites).fill().forEach(
         (val, index) =>
           this.props.createMonster({
             hp: hp * 1,
             maxHp: hp * 1,
-            number: 0,
+            number: availableNumbers[index],
             monsterGroupId: this.props.group.id,
             elite: index > normals - 1,
           })

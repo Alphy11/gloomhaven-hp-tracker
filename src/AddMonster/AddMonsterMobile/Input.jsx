@@ -18,12 +18,14 @@ class Input extends React.Component {
     const value = event.target.value;
 
     if(!number || !isNaN(value)) {
-      onChangeProp(value);
+      const valueConverted = number ? value * 1 : value;
+      onChangeProp(valueConverted);
     }
   }
 
   render() {
-    const { defaultText, value } = this.props;
+    const { value, number } = this.props;
+    const defaultText = number ? 0 : "";
     return <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value}/>
   }
 }

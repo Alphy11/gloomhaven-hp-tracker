@@ -2,14 +2,21 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-const createMonster = gql`
+const updateMonsterHp = gql`
   mutation updateMonster($id: ID!, $hp: Int!) {
     updateMonster(id: $id, hp: $hp) {
       id,
       hp
     }
-  }
-`
+  }`;
+
+const deleteMonster = gql`
+  mutation deleteMonster($id: ID!) {
+    deleteMonster(id: $id) {
+      id
+    }
+  }`;
+
 
 export default function createMonsterHpContainer(WrappedComponent) {
   class MonsterHpContainerHOC extends React.Component {
@@ -32,10 +39,19 @@ export default function createMonsterHpContainer(WrappedComponent) {
     }
 
     setHp(label) {
-      this.props.changeHp({
-          id: this.props.monster.id,
-        },
-        this.getHp() + (label * 1));
+      this.changeXpTo(this.getHp() + (label * 1));
+    }
+
+    changeXpTo(newHp) {
+      if(newHp > 0) {
+        this.props.changeHp(
+          {
+            id: this.props.monster.id,
+          },
+          newHp);
+      } else {
+        this.props.deleteMonster(this.props.monster.id);
+      }
     }
 
     render() {
@@ -48,8 +64,8 @@ export default function createMonsterHpContainer(WrappedComponent) {
     }
   }
 
-  return graphql(
-    createMonster,
+  const MonsterHpContainerHOCWithChangeHp = graphql(
+    updateMonsterHp,
     {
       props: ({ ownProps, mutate }) => ({
         changeHp({ id }, hp) {
@@ -60,4 +76,17 @@ export default function createMonsterHpContainer(WrappedComponent) {
       }),
     },
   )(MonsterHpContainerHOC);
+
+  return graphql(
+    deleteMonster,
+    {
+      props: ({ ownProps, mutate }) => ({
+        deleteMonster( id ) {
+          return mutate({
+            variables: { id },
+          });
+        },
+      }),
+    },
+  )(MonsterHpContainerHOCWithChangeHp);
 }
