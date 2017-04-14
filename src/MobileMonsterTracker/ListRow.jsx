@@ -4,7 +4,7 @@ import { css, createStyleSheet } from 'Util/css';
 const styles = createStyleSheet({
   row: {
     width: '100%',
-    height: `${100/12}%`,
+    height: `${100/20}%`,
   }
 })
 

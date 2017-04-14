@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import React from 'react';
 import ListRow from './ListRow';
+import VCenter from 'Util/VCenter';
 import { css, createStyleSheet } from 'Util/css';
 
 const styles = createStyleSheet( {
@@ -9,9 +10,7 @@ const styles = createStyleSheet( {
     opacity: '1',
   },
   text: {
-    margin: 'auto',
-    textAlign: 'center',
-    verticalAlign: 'middle',
+    fontSize: '64px',
   },
   button: {
     width: '100%',
@@ -24,7 +23,7 @@ function AddMonsterButton({ toggle }) {
     <ListRow addedStyles={[styles.addMonsterButton]}>
       <div {...css(styles.button)} onClick={() => toggle(true)}>
         <div {...css(styles.text)}>
-          Add Monster
+          <VCenter>Add Monster</VCenter>
         </div>
       </div>
     </ListRow>);
