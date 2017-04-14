@@ -10,21 +10,21 @@ const styles = createStyleSheet({
 class Input extends React.Component {
   constructor(props, context) {
     super(props, context);
-    onChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(event) {
-    const { number, onChange } = this.props;
+    const { number, onChange: onChangeProp } = this.props;
     const value = event.target.value;
 
     if(!number || !isNaN(value)) {
-      onChange(value);
+      onChangeProp(value);
     }
   }
 
   render() {
     const { defaultText, value } = this.props;
-    return <input {...css(styles.input)} onChange={onChange} default={defaultText} value={value}/>
+    return <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value}/>
   }
 }
 
