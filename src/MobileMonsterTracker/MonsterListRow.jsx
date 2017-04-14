@@ -6,6 +6,8 @@ import MonsterStatusEffects from '../MonsterTracker/Monster/MonsterStatusEffects
 import VCenter from 'Util/VCenter';
 import { css, createStyleSheet } from 'Util/css';
 
+import MonsterHp from './MonsterHp';
+
 const styles = createStyleSheet({
   centered: {
     textAlign: 'center',
@@ -14,14 +16,6 @@ const styles = createStyleSheet({
     fontSize: '48px',
     margin: 'auto'
   },
-  plus: {
-    backgroundColor: 'green',
-    height: '100%',
-  },
-  minus: {
-    backgroundColor: 'red',
-    height: '100%',
-  }
 });
 
 function MonsterListRow({ monster }) {
@@ -51,24 +45,7 @@ function MonsterListRow({ monster }) {
       <ListSection sections={2}>
         <MonsterStatusEffects monster={monster} />
       </ListSection>
-      <ListSection sections={2}>
-        <div {...css(styles.plus)} >
-          <VCenter>
-            <div {...css(styles.number)}>
-              +
-            </div>
-          </VCenter>
-        </div>
-      </ListSection>
-      <ListSection sections={2}>
-         <div {...css(styles.minus)} >
-          <VCenter>
-            <div {...css(styles.number)}>
-              -
-            </div>
-          </VCenter>
-        </div>
-      </ListSection>
+      <MonsterHp monster={monster}/>
     </ListItem>);
 }
 

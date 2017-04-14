@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import { css, createStyleSheet } from 'Util/css';
 import Input from './Input';
-import createAddMonsterContainer from './createAddMonsterContainer';
+import createAddMonsterContainer from '../createAddMonsterContainer';
 
 const styles = createStyleSheet({
   closeButton: {
