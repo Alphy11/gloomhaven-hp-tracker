@@ -64,6 +64,7 @@ export default function createMonsterHpContainer(WrappedComponent) {
     }
   }
 
+  // Need to move to our own redux store cache because optimistic response is too slow.
   const MonsterHpContainerHOCWithChangeHp = graphql(
     updateMonsterHp,
     {

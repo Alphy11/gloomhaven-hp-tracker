@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from './Text';
+import Text from '../Text';
 import { css, createStyleSheet } from 'Util/css';
 
 const styles = createStyleSheet({
@@ -37,10 +37,7 @@ class Input extends React.Component {
     const { value, number, name } = this.props;
     const defaultText = number ? 0 : "";
     return (
-      <div>
-        <div {...css(styles.text)}><Text>{name.toUpperCase()}</Text></div>
-        <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value}/>
-      </div>);
+        <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value}/>);
   }
 }
 

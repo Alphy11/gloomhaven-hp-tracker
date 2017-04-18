@@ -8,6 +8,7 @@ import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-trans
 import MonsterTracker from './MonsterTracker'
 import MobileMonsterTracker from './MobileMonsterTracker';
 import { uri, wsUri } from '../endpoint';
+import AddMonster from './MonsterTracker/AddMonster';
 
 const networkInterface = createNetworkInterface({ uri })
 const wsClient = new SubscriptionClient(wsUri);
@@ -22,6 +23,7 @@ ReactDOM.render((
   <ApolloProvider client={client}>
     <Router history={createHistory()}>
       <Switch>
+        <Route path='/nonmobile/add' component={AddMonster} />
         <Route path='/nonmobile' component={MonsterTracker} />
         <Route path='/mobile' component={MobileMonsterTracker} />
         <Route path='/' component={MonsterTracker} />

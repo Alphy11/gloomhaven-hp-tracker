@@ -52,6 +52,7 @@ export default function createAddMonsterContainer(WrappedComponent) {
         onChange: (value) => this.trackValue(name, value),
         number: isNumber,
         value: this.getValue(name),
+        name: name,
       }
     }
 
@@ -67,7 +68,7 @@ export default function createAddMonsterContainer(WrappedComponent) {
     }
 
     submit(){
-      let { hp, types, normals, elites } = this.state;
+      let { hp, type, normals, elites } = this.state;
       const monsterNumbers = this.props.group.monsters.map(m => m.number);
       const availableNumbers =
         Array(normals + elites + monsterNumbers.length).fill()
