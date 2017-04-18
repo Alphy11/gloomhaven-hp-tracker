@@ -5,31 +5,31 @@ import createHistory from 'history/createHashHistory';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
-import MonsterTracker from './components/Desktop/MonsterTracker'
+import MonsterTracker from './components/Desktop/MonsterTracker';
 import MobileMonsterTracker from './components/Mobile/MobileMonsterTracker';
 import { uri, wsUri } from '../endpoint';
 import AddMonster from './components/Desktop/AddMonster';
 
-const networkInterface = createNetworkInterface({ uri })
+const networkInterface = createNetworkInterface({ uri });
 const wsClient = new SubscriptionClient(wsUri);
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
   networkInterface,
-  wsClient
-)
+  wsClient,
+);
 
-const client = new ApolloClient({ networkInterface: networkInterfaceWithSubscriptions })
+const client = new ApolloClient({ networkInterface: networkInterfaceWithSubscriptions });
 
 ReactDOM.render((
   <ApolloProvider client={client}>
     <Router history={createHistory()}>
       <Switch>
-        <Route path='/nonmobile/add' component={AddMonster} />
-        <Route path='/nonmobile' component={MonsterTracker} />
-        <Route path='/mobile' component={MobileMonsterTracker} />
-        <Route path='/' component={MonsterTracker} />
+        <Route path="/nonmobile/add" component={AddMonster} />
+        <Route path="/nonmobile" component={MonsterTracker} />
+        <Route path="/mobile" component={MobileMonsterTracker} />
+        <Route path="/" component={MonsterTracker} />
       </Switch>
     </Router>
   </ApolloProvider>
   ),
-  document.getElementById('app')
-)
+  document.getElementById('app'),
+);

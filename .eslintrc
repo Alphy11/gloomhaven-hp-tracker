@@ -1,35 +1,14 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "plugin:airbnb/recommended",
-    "plugin:react-with-styles/recommended"
-  ],
+  "extends": "airbnb",
   "plugins": [
     "react",
-    "react-with-styles",
-    "airbnb",
-    "import",
-    "flowtype"
+    "import"
   ],
   "env": {
     "node": true,
     "mocha": true
   },
-  // "rules": {
-  //   "import/order": [
-  //     2, {
-  //       "newlines-between": "always",
-  //       "groups": [
-  //         ["builtin", "external"],
-  //         "internal",
-  //         "parent",
-  //         "sibling",
-  //         "index"
-  //       ]
-  //     }],
-  //   "sort-keys": [2, "asc", {"caseSensitive": true, "natural": false}]
-  // },
   "ecmaFeatures": {
     "arrowFunctions": true,
     "blockBindings": true,

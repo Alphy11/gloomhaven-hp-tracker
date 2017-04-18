@@ -1,13 +1,12 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import { camelToSpaces } from 'Util/helpers'
+import { camelToSpaces } from 'Util/helpers';
 import ListRow from './ListRow';
 import MonsterListRow from './MonsterListRow';
 import ListHeader from './ListHeader';
 import MonsterGroupContainer from 'Containers/MonsterGroupContainer';
 
 function MonsterGroupList({ monsters, type }) {
-
   return (
     <div>
       <ListHeader>{camelToSpaces(type)}</ListHeader>
@@ -22,6 +21,6 @@ const fragments = {
       ...monsterInfoMobile
     }
     ${MonsterListRow.fragments.monsterInfoMobile}`,
-}
+};
 
 export default MonsterGroupContainer(MonsterGroupList, fragments.monsterInfoWithIdMobile, 'monsterInfoWithIdMobile');

@@ -8,14 +8,14 @@ const styles = createStyleSheet({
     float: 'left',
     height: '32px',
     marginLeft: '20px',
-    width: '60%'
+    width: '60%',
   },
   text: {
     width: '25%',
     marginLeft: '7.5%',
     float: 'left',
-  }
-})
+  },
+});
 
 class Input extends React.Component {
   constructor(props, context) {
@@ -27,7 +27,7 @@ class Input extends React.Component {
     const { number, onChange: onChangeProp } = this.props;
     const value = event.target.value;
 
-    if(!number || !isNaN(value)) {
+    if (!number || !isNaN(value)) {
       const valueConverted = number ? value * 1 : value;
       onChangeProp(valueConverted);
     }
@@ -35,9 +35,9 @@ class Input extends React.Component {
 
   render() {
     const { value, number, name } = this.props;
-    const defaultText = number ? 0 : "";
+    const defaultText = number ? 0 : '';
     return (
-        <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value}/>);
+      <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value} />);
   }
 }
 

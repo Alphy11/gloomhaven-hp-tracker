@@ -8,7 +8,7 @@ import {
   findValueIndex,
   addValue,
   updateValue,
-  removeValue
+  removeValue,
 } from 'Util/list';
 
 function AllMonsterGroupsContainer(WrappedComponent, fragment, fragmentName) {
@@ -37,7 +37,7 @@ function AllMonsterGroupsContainer(WrappedComponent, fragment, fragmentName) {
     'MonsterGroup');
 
 
-  function optionsFunction(params){
+  function optionsFunction(params) {
     return {};
   }
 
@@ -47,12 +47,12 @@ function AllMonsterGroupsContainer(WrappedComponent, fragment, fragmentName) {
 
 
   class AllMonsterGroupsContainerHOC extends React.Component {
-    static get fragments(){
-      return WrappedComponent.fragments
+    static get fragments() {
+      return WrappedComponent.fragments;
     }
 
     static get displayName() {
-      return `AllMonsterGroupsContainerHOC(${WrappedComponent.name})`
+      return `AllMonsterGroupsContainerHOC(${WrappedComponent.name})`;
     }
 
     componentWillMount() {
@@ -61,7 +61,7 @@ function AllMonsterGroupsContainer(WrappedComponent, fragment, fragmentName) {
 
     render() {
       const dataProp = this.props[dataPropName];
-      if(dataProp.loading) {
+      if (dataProp.loading) {
         return null;
       }
 
@@ -71,7 +71,7 @@ function AllMonsterGroupsContainer(WrappedComponent, fragment, fragmentName) {
           monsterGroups={dataProp.allMonsterGroups}
         />);
     }
-  };
+  }
 
   return withData(AllMonsterGroupsContainerHOC);
 }

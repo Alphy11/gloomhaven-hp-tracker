@@ -6,56 +6,52 @@ import {
   findValueIndex,
   addValue,
   updateValue,
-  removeValue
+  removeValue,
 } from 'Util/list';
 
 function createContainer(
   initialQuery,
   subscriptionQuery,
   optionsFunction,
-  dataPropName
+  dataPropName,
 ) {
   return withData = graphql(initialQuery.query, {
     name: dataPropName,
     options: optionsFunction,
-    props: props => {
-      return {
-        [dataPropName]: props[dataPropName],
-        subscribeToData: params => {
-          return props[dataPropName].subscribeToMore({
-            document: subscriptionQuery.query,
-            variables: optionsFunction(props.ownProps),
-            updateQuery: (prev, {subscriptionData}) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
-              const prevEntries = prev[initialQuery.queryName];
-              const newMonster = subscriptionData.data[subscriptionQuery.queryName];
-              const { mutation, previousValues, node } = newMonster;
-              let retList;
-              switch (mutation) {
-              case "CREATED":
-                retList = addValue(prevEntries, node);
-                break;
-              case "UPDATED":
-                retList = updateValue(prevEntries, node);
-                break;
-              case "DELETED":
-                retList = removeValue(prevEntries, previousValues);
-                break;
-              default:
-                retList = prevEntries;
-              }
+    props: props => ({
+      [dataPropName]: props[dataPropName],
+      subscribeToData: params => props[dataPropName].subscribeToMore({
+        document: subscriptionQuery.query,
+        variables: optionsFunction(props.ownProps),
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) {
+            return prev;
+          }
+          const prevEntries = prev[initialQuery.queryName];
+          const newMonster = subscriptionData.data[subscriptionQuery.queryName];
+          const { mutation, previousValues, node } = newMonster;
+          let retList;
+          switch (mutation) {
+            case 'CREATED':
+              retList = addValue(prevEntries, node);
+              break;
+            case 'UPDATED':
+              retList = updateValue(prevEntries, node);
+              break;
+            case 'DELETED':
+              retList = removeValue(prevEntries, previousValues);
+              break;
+            default:
+              retList = prevEntries;
+          }
 
-              return {
-                ...prev,
-                [initialQuery.queryName]: retList,
-              }
-            }
-          });
-        }
-      }
-    }
+          return {
+            ...prev,
+            [initialQuery.queryName]: retList,
+          };
+        },
+      }),
+    }),
   });
 }
 

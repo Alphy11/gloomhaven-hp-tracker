@@ -24,16 +24,16 @@ const createMonster = gql`
         id
       }
     }
-  }`
+  }`;
 
 export default function createAddMonsterContainer(WrappedComponent) {
   class AddMonsterContainerHOC extends React.Component {
-    static get fragments(){
-      return WrappedComponent.fragments
+    static get fragments() {
+      return WrappedComponent.fragments;
     }
 
     static get displayName() {
-      return `AddMonsterContainerHOC(${WrappedComponent.name})`
+      return `AddMonsterContainerHOC(${WrappedComponent.name})`;
     }
 
     constructor(props, context) {
@@ -49,26 +49,26 @@ export default function createAddMonsterContainer(WrappedComponent) {
 
     createInputProps(name, isNumber) {
       return {
-        onChange: (value) => this.trackValue(name, value),
+        onChange: value => this.trackValue(name, value),
         number: isNumber,
         value: this.getValue(name),
-        name: name,
-      }
+        name,
+      };
     }
 
     trackValue(name, value) {
       this.setState({
         ...this.state,
         [name]: value,
-      })
+      });
     }
 
     getValue(name) {
-      return this.state[name] || "";
+      return this.state[name] || '';
     }
 
-    submit(){
-      let { hp, type, normals, elites } = this.state;
+    submit() {
+      const { hp, type, normals, elites } = this.state;
       const monsterNumbers = this.props.group.monsters.map(m => m.number);
       const availableNumbers =
         Array(normals + elites + monsterNumbers.length).fill()
@@ -82,7 +82,7 @@ export default function createAddMonsterContainer(WrappedComponent) {
             number: availableNumbers[index],
             monsterGroupId: this.props.group.id,
             elite: index > normals - 1,
-          })
+          }),
       );
 
       this.close();

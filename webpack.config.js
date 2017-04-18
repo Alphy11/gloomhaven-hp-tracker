@@ -6,7 +6,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 
 module.exports = {
-  devtool: "#inline-source-map",
+  devtool: '#inline-source-map',
   // devServer: {
   //   hot: true,
   //   inline: true,
@@ -17,7 +17,7 @@ module.exports = {
   entry: isDev ? [
     'webpack/hot/only-dev-server',
     'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'src/index.jsx')
+    path.resolve(__dirname, 'src/index.jsx'),
   ] : [path.resolve(__dirname, 'src/index.jsx')],
   output: {
     path: path.join(__dirname, 'dist/'),
@@ -44,6 +44,6 @@ module.exports = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: isDev ? [
-    new webpack.HotModuleReplacementPlugin()
-  ] : []
+    new webpack.HotModuleReplacementPlugin(),
+  ] : [],
 };

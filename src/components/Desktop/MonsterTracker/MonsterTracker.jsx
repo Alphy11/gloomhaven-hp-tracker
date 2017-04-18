@@ -17,7 +17,8 @@ class MonsterTracker extends React.Component {
             <MonsterGroup
               id={id}
               monsterGroupType={type}
-              key={id} />
+              key={id}
+            />,
         )}
         <Link to={'/nonmobile/add'}>Add Monster</Link>
       </div>
@@ -34,4 +35,4 @@ const fragments = {
 };
 const MonsterTrackerWithSubscription = AllMonsterGroupsContainer(MonsterTracker, fragments.monsterGroup, 'monsterGroupInfo');
 
-export default withRouter(MonsterTrackerWithSubscription)
+export default withRouter(MonsterTrackerWithSubscription);

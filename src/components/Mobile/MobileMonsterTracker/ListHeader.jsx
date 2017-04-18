@@ -8,8 +8,8 @@ const styles = createStyleSheet({
     border: 'solid 1px blue',
     backgroundColor: 'dodgerblue',
     fontSize: '64px',
-  }
-})
+  },
+});
 
 function ListHeader({ children }) {
   return (

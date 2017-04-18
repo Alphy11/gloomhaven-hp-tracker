@@ -14,7 +14,7 @@ const styles = createStyleSheet({
   },
   number: {
     fontSize: '48px',
-    margin: 'auto'
+    margin: 'auto',
   },
 });
 
@@ -45,7 +45,7 @@ function MonsterListRow({ monster }) {
       <ListSection sections={2}>
         <MonsterStatusEffects monster={monster} />
       </ListSection>
-      <MonsterHp monster={monster}/>
+      <MonsterHp monster={monster} />
     </ListItem>);
 }
 
@@ -59,6 +59,6 @@ MonsterListRow.fragments = {
       ...monsterStatusEffects
     }
     ${MonsterStatusEffects.fragments.monsterStatusEffects}`,
-}
+};
 
 export default MonsterListRow;

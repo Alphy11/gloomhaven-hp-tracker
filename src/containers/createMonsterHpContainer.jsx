@@ -20,12 +20,12 @@ const deleteMonster = gql`
 
 export default function createMonsterHpContainer(WrappedComponent) {
   class MonsterHpContainerHOC extends React.Component {
-    static get fragments(){
-      return WrappedComponent.fragments
+    static get fragments() {
+      return WrappedComponent.fragments;
     }
 
     static get displayName() {
-      return `MonsterHpContainerHOC(${WrappedComponent.name})`
+      return `MonsterHpContainerHOC(${WrappedComponent.name})`;
     }
 
     constructor(props, context) {
@@ -43,7 +43,7 @@ export default function createMonsterHpContainer(WrappedComponent) {
     }
 
     changeXpTo(newHp) {
-      if(newHp > 0) {
+      if (newHp > 0) {
         this.props.changeHp(
           {
             id: this.props.monster.id,
@@ -82,7 +82,7 @@ export default function createMonsterHpContainer(WrappedComponent) {
     deleteMonster,
     {
       props: ({ ownProps, mutate }) => ({
-        deleteMonster( id ) {
+        deleteMonster(id) {
           return mutate({
             variables: { id },
           });

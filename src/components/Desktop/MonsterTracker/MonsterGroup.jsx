@@ -9,7 +9,7 @@ import {
   findValueIndex,
   addValue,
   updateValue,
-  removeValue
+  removeValue,
 } from 'Util/list';
 
 import Monster from './Monster';
@@ -17,13 +17,13 @@ import MonsterGroupContainer from 'Containers/MonsterGroupContainer';
 
 const styles = createStyleSheet({
   top: {
-    display:'inline-block',
+    display: 'inline-block',
     width: '50%',
   },
 });
 
 class MonsterGroup extends React.Component {
-  render(){
+  render() {
     const {
       monsterGroupType,
       monsters: monsterList,
@@ -33,9 +33,9 @@ class MonsterGroup extends React.Component {
       <div {...css(styles.top)}>
         <h2>{monsterGroupType}</h2>
         {monsterList.slice()
-          .sort( (m1, m2) => m1.number > m2.number)
+          .sort((m1, m2) => m1.number > m2.number)
           .map(
-            (monster) =>
+            monster =>
               <Section key={monster.id}>
                 <Monster monster={monster} />
               </Section>)}
@@ -50,6 +50,6 @@ MonsterGroup.fragments = {
       ...monsterInfo
     }
     ${Monster.fragments.monsterInfo}`,
-}
+};
 
-export default MonsterGroupContainer(MonsterGroup, MonsterGroup.fragments.monsterInfoWithId, "monsterInfoWithId");
+export default MonsterGroupContainer(MonsterGroup, MonsterGroup.fragments.monsterInfoWithId, 'monsterInfoWithId');

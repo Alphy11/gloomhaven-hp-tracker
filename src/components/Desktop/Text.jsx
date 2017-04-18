@@ -6,11 +6,11 @@ const styles = createStyleSheet({
     fontSize: '32px',
     fontWeight: 'bold',
     float: 'left',
-  }
-})
+  },
+});
 
-function Text({ children }){
-    return <div {...css(styles.text)}>{children}</div>
+function Text({ children }) {
+  return <div {...css(styles.text)}>{children}</div>;
 }
 
 export default Text;

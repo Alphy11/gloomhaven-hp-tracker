@@ -9,6 +9,7 @@
   },
   "scripts": {
     "lint": "eslint --cache --ignore-path .gitignore --ext .jsx,.js --format=node_modules/eslint-formatter-pretty .",
+    "lint:fix": "eslint --fix --cache --ignore-path .gitignore --ext .jsx,.js --format=node_modules/eslint-formatter-pretty .",
     "lint:msg": "validate-commit-msg",
     "test": "npm run lint",
     "build": "webpack",
@@ -31,9 +32,11 @@
     "babel-preset-airbnb": "^2.2.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
+    "eslint-formatter-pretty": "^1.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-react-with-styles": "^1.1.0",
     "open-browser-webpack-plugin": "0.0.5",
     "redux-devtools": "^3.3.2",
     "webpack-dev-server": "^2.4.2"

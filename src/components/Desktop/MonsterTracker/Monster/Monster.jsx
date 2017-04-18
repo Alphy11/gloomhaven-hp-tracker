@@ -6,7 +6,7 @@ import Section from 'Util/Section';
 import { css, createStyleSheet } from 'Util/css';
 
 import MonsterHp from './MonsterHp';
-import MonsterStatusEffects from '../../../Shared/MonsterStatusEffects'
+import MonsterStatusEffects from '../../../Shared/MonsterStatusEffects';
 
 const styles = createStyleSheet({
   monsterLabel: {
@@ -23,12 +23,12 @@ const styles = createStyleSheet({
     boxSizing: 'border-box',
     //padding: '10px 10px 10px 10px',
   },
-  borderColor:{
+  borderColor: {
     borderColor: 'black',
   },
-  borderColor_elite:{
+  borderColor_elite: {
     borderColor: 'gold',
-  }
+  },
 });
 
 function Monster({ monster }) {
@@ -63,7 +63,7 @@ Monster.fragments = {
       ...monsterHpInfo
     }
     ${MonsterHp.fragments.monsterHpInfo}
-  `
-}
+  `,
+};
 
-export default  Monster
+export default Monster;

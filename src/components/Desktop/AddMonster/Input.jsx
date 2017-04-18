@@ -11,16 +11,16 @@ const styles = createStyleSheet({
   top: {
     width: '100%',
     display: 'inline-block',
-  }
-})
+  },
+});
 
 function Input(props) {
-    const { value, number, name } = props;
-    return (
-      <div {...css(styles.top)}>
-        <div {...css(styles.label)}><Text>{name}</Text></div>
-        <TextInput {...props}/>
-      </div>);
+  const { value, number, name } = props;
+  return (
+    <div {...css(styles.top)}>
+      <div {...css(styles.label)}><Text>{name}</Text></div>
+      <TextInput {...props} />
+    </div>);
 }
 
 export default Input;

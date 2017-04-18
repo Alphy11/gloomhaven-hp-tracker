@@ -12,6 +12,6 @@ class ListView extends React.Component {
 }
 
 ListView.propTypes = {
-}
+};
 
 export default ListView;

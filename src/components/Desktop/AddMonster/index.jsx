@@ -6,10 +6,10 @@ import Input from './Input';
 
 const styles = createStyleSheet({
   submit: {
-    //height: '40px',
-    //width: '40px',
-  }
-})
+    // height: '40px',
+    // width: '40px',
+  },
+});
 
 class AddMonster extends React.Component {
   constructor(props, context) {
@@ -22,7 +22,7 @@ class AddMonster extends React.Component {
   }
 
   close() {
-    this.setState({...this.state, close: true});
+    this.setState({ ...this.state, close: true });
   }
 
   submit() {
@@ -31,16 +31,16 @@ class AddMonster extends React.Component {
   }
 
   render() {
-    if(this.state.close) {
-      return (<Redirect to={`/nonmobile`} />);
+    if (this.state.close) {
+      return (<Redirect to={'/nonmobile'} />);
     }
 
     return (
       <div>
-        <Input {...this.props.createInputProps('Type', false)}/>
-        <Input {...this.props.createInputProps('elite', false)}/>
-        <Input {...this.props.createInputProps('normal', false)}/>
-        <Input {...this.props.createInputProps('hp', false)}/>
+        <Input {...this.props.createInputProps('Type', false)} />
+        <Input {...this.props.createInputProps('elite', false)} />
+        <Input {...this.props.createInputProps('normal', false)} />
+        <Input {...this.props.createInputProps('hp', false)} />
         <button {...css(styles.submit)} onClick={this.submit}>
           Submit
         </button>

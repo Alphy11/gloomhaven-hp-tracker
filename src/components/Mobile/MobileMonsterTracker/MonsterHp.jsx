@@ -9,7 +9,7 @@ import createMonsterHpContainer from 'Containers/createMonsterHpContainer';
 const styles = createStyleSheet({
   number: {
     fontSize: '48px',
-    margin: 'auto'
+    margin: 'auto',
   },
   plus: {
     backgroundColor: 'green',
@@ -18,7 +18,7 @@ const styles = createStyleSheet({
   minus: {
     backgroundColor: 'red',
     height: '100%',
-  }
+  },
 });
 
 function MonsterHp({ monster, getHp, setHp }) {
@@ -51,7 +51,7 @@ MonsterHp.fragments = {
       hp,
       maxHp
     }
-  `
-}
+  `,
+};
 
 export default createMonsterHpContainer(MonsterHp);

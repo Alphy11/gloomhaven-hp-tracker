@@ -8,7 +8,7 @@ import {
   findValueIndex,
   addValue,
   updateValue,
-  removeValue
+  removeValue,
 } from 'Util/list';
 
 function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
@@ -53,10 +53,10 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
     'Monster');
 
 
-  function optionsFunction(params){
+  function optionsFunction(params) {
     return {
-        id: params.id,
-    }
+      id: params.id,
+    };
   }
 
   const dataPropName = 'monsters';
@@ -65,23 +65,23 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
 
 
   class MonsterGroupContainerHOC extends React.Component {
-    static get fragments(){
-      return WrappedComponent.fragments
+    static get fragments() {
+      return WrappedComponent.fragments;
     }
 
     static get displayName() {
-      return `MonsterGroupContainerHOC(${WrappedComponent.name})`
+      return `MonsterGroupContainerHOC(${WrappedComponent.name})`;
     }
 
     componentWillMount() {
       this.props.subscribeToData({
-          id: this.props.id,
+        id: this.props.id,
       });
     }
 
-    render(){
+    render() {
       const monsterDataProp = this.props[dataPropName];
-      if(monsterDataProp.loading) {
+      if (monsterDataProp.loading) {
         return null;
       }
 
@@ -91,7 +91,7 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
           monsters={monsterDataProp.allMonsters}
         />);
     }
-  };
+  }
 
   return withData(MonsterGroupContainerHOC);
 }

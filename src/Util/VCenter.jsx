@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css, createStyleSheet } from '../Util/css';
 
-function VCenter({children}) {
+function VCenter({ children }) {
   const styles = createStyleSheet({
     wrapper: {
       width: '100%',
@@ -13,18 +13,18 @@ function VCenter({children}) {
       display: 'table-cell',
       verticalAlign: 'middle',
       textAlign: 'center',
-    }
+    },
   });
   return (
     <div {...css(styles.wrapper)}>
       <div {...css(styles.inner)}>
-       {children}
+        {children}
       </div>
     </div>);
 }
 
 VCenter.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
 export default VCenter;

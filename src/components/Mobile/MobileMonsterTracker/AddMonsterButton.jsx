@@ -4,7 +4,7 @@ import ListRow from './ListRow';
 import VCenter from 'Util/VCenter';
 import { css, createStyleSheet } from 'Util/css';
 
-const styles = createStyleSheet( {
+const styles = createStyleSheet({
   addMonsterButton: {
     backgroundColor: 'green',
     opacity: '1',
@@ -15,8 +15,8 @@ const styles = createStyleSheet( {
   button: {
     width: '100%',
     height: '100%',
-  }
-})
+  },
+});
 
 function AddMonsterButton({ toggle }) {
   return (

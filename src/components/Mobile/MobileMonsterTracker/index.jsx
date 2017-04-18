@@ -9,11 +9,10 @@ import { withRouter } from 'react-router';
 const styles = createStyleSheet({
   top: {
     margin: '-8px -8px -8px -8px',
-  }
-})
+  },
+});
 
 function page() {
-
   return (
     <div {...css(styles.top)}>
       <MonsterListView />

@@ -7,8 +7,8 @@ const styles = createStyleSheet({
     border: 'solid 1px blue',
     backgroundColor: 'lightblue',
     opacity: '0.5',
-  }
-})
+  },
+});
 
 function ListItem({ children }) {
   return (
