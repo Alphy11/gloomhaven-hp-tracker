@@ -27,5 +27,10 @@
     "superInFunctions": true,
     "templateStrings": true,
     "jsx": true
+  },
+  "import/resolver": {
+    "webpack": {
+      "config": "./webpack.config.js"
+    }
   }
 }

@@ -36,7 +36,7 @@ class MonsterHp extends React.Component {
     return (
       <Row>
         <Section>
-          <h3>HP:                      {`${getHp()}/${maxHp}`}</h3>
+          <h3>HP:                                {`${getHp()}/${maxHp}`}</h3>
         </Section>
         <Section>
           {modifiers.map(mod => (
