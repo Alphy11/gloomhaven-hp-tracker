@@ -39,6 +39,7 @@ module.exports = {
   resolve: {
     alias: {
       Util: path.join(__dirname, 'src', 'Util'),
+      Containers: path.join(__dirname, 'src', 'containers'),
     },
     extensions: ['*', '.js', '.jsx'],
   },

@@ -4,7 +4,7 @@ import { camelToSpaces } from 'Util/helpers'
 import ListRow from './ListRow';
 import MonsterListRow from './MonsterListRow';
 import ListHeader from './ListHeader';
-import MonsterGroupContainer from '../Containers/MonsterGroupContainer';
+import MonsterGroupContainer from 'Containers/MonsterGroupContainer';
 
 function MonsterGroupList({ monsters, type }) {
 

@@ -6,7 +6,7 @@ import Section from 'Util/Section';
 import { css, createStyleSheet } from 'Util/css';
 
 import MonsterHp from './MonsterHp';
-import MonsterStatusEffects from './MonsterStatusEffects'
+import MonsterStatusEffects from '../../../Shared/MonsterStatusEffects'
 
 const styles = createStyleSheet({
   monsterLabel: {

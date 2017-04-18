@@ -6,7 +6,7 @@ import Row from 'Util/Row';
 import Section from 'Util/Section';
 import { css, createStyleSheet } from 'Util/css';
 
-import createMonsterHpContainer from '../../MonsterHp/createMonsterHpContainer';
+import createMonsterHpContainer from 'Containers/createMonsterHpContainer';
 
 const styles = createStyleSheet({
   children: {

@@ -4,7 +4,7 @@ import ListView from './ListView';
 import ListSection from './ListSection';
 import MonsterGroupList from './MonsterGroupList';
 import AddMonsterButton from './AddMonsterButton';
-import AllMonsterGroupsContainer from '../Containers/AllMonsterGroupsContainer';
+import AllMonsterGroupsContainer from 'Containers/AllMonsterGroupsContainer';
 import AddMonster from '../AddMonster';
 
 import { css, createStyleSheets } from 'Util/css';

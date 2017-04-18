@@ -13,7 +13,7 @@ import {
 } from 'Util/list';
 
 import Monster from './Monster';
-import MonsterGroupContainer from '../Containers/MonsterGroupContainer';
+import MonsterGroupContainer from 'Containers/MonsterGroupContainer';
 
 const styles = createStyleSheet({
   top: {

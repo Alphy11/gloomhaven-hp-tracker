@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { css, createStyleSheet } from 'Util/css';
-import createAddMonsterContainer from '../../AddMonster/createAddMonsterContainer';
+import createAddMonsterContainer from 'Containers/createAddMonsterContainer';
 import Input from './Input';
 
 const styles = createStyleSheet({

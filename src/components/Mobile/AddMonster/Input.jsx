@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from './Text';
+import Text from '../Text';
 import { css, createStyleSheet } from 'Util/css';
 
 const styles = createStyleSheet({

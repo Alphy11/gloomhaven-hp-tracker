@@ -1,5 +1,4 @@
 import React from 'react';
-import createAddMonsterContainer from '../../AddMonster/createAddMonsterContainer';
 import { css, createStyleSheet } from 'Util/css';
 import Text from '../Text';
 import TextInput from './TextInput';

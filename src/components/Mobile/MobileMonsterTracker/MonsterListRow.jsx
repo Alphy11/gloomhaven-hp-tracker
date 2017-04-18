@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import ListItem from './ListItem';
 import ListSection from './ListSection';
-import MonsterStatusEffects from '../MonsterTracker/Monster/MonsterStatusEffects';
+import MonsterStatusEffects from '../../Shared/MonsterStatusEffects';
 import VCenter from 'Util/VCenter';
 import { css, createStyleSheet } from 'Util/css';
 

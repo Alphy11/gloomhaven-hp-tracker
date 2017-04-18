@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import MonsterGroup from './MonsterGroup';
-import AllMonsterGroupsContainer from '../Containers/AllMonsterGroupsContainer';
+import AllMonsterGroupsContainer from 'Containers/AllMonsterGroupsContainer';
 
 class MonsterTracker extends React.Component {
 

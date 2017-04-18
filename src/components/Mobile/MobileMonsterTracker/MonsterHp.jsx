@@ -4,7 +4,7 @@ import { css, createStyleSheet } from 'Util/css';
 import VCenter from 'Util/VCenter';
 import ListSection from './ListSection';
 
-import createMonsterHpContainer from '../MonsterHp/createMonsterHpContainer';
+import createMonsterHpContainer from 'Containers/createMonsterHpContainer';
 
 const styles = createStyleSheet({
   number: {
