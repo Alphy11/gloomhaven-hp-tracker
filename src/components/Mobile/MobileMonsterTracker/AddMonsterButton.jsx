@@ -1,8 +1,9 @@
-import gql from 'graphql-tag';
 import React from 'react';
-import ListRow from './ListRow';
+
 import VCenter from 'Util/VCenter';
 import { css, createStyleSheet } from 'Util/css';
+
+import ListRow from './ListRow';
 
 const styles = createStyleSheet({
   addMonsterButton: {

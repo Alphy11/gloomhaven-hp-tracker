@@ -1,15 +1,6 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import createContainer, { Query } from './createContainer';
-
-import { subscribeToData } from 'Util/subscribe';
-import {
-  findValueIndex,
-  addValue,
-  updateValue,
-  removeValue,
-} from 'Util/list';
 
 function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
   const MONSTER_QUERY = new Query(gql`
@@ -61,7 +52,12 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
 
   const dataPropName = 'monsters';
 
-  const withData = createContainer(MONSTER_QUERY, MONSTER_SUBSCRIPTION, optionsFunction, dataPropName);
+  const withData = createContainer(
+    MONSTER_QUERY,
+    MONSTER_SUBSCRIPTION,
+    optionsFunction,
+    dataPropName,
+  );
 
 
   class MonsterGroupContainerHOC extends React.Component {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListRow from './ListRow';
@@ -15,3 +16,5 @@ ListView.propTypes = {
 };
 
 export default ListView;
+
+/* eslint-enable */

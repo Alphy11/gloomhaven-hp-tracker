@@ -1,7 +1,7 @@
 import { css as aphroditecss, StyleSheet } from 'aphrodite';
 
-export function css() {
-  return { className: aphroditecss(...arguments) };
+export function css(...styles) {
+  return { className: aphroditecss(...styles) };
 }
 
 export function createStyleSheet(sheet) {

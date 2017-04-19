@@ -1,5 +1,4 @@
 import React from 'react';
-import Text from '../Text';
 import { css, createStyleSheet } from 'Util/css';
 
 const styles = createStyleSheet({
@@ -34,10 +33,15 @@ class Input extends React.Component {
   }
 
   render() {
-    const { value, number, name } = this.props;
+    const { value, number } = this.props;
     const defaultText = number ? 0 : '';
     return (
-      <input {...css(styles.input)} onChange={this.onChange} default={defaultText} value={value} />);
+      <input
+        {...css(styles.input)}
+        onChange={this.onChange}
+        default={defaultText}
+        value={value}
+      />);
   }
 }
 

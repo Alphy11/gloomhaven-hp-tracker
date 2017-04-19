@@ -1,10 +1,12 @@
 import React from 'react';
 import gql from 'graphql-tag';
+
 import { css, createStyleSheet } from 'Util/css';
 import VCenter from 'Util/VCenter';
+import createMonsterHpContainer from 'Containers/createMonsterHpContainer';
+
 import ListSection from './ListSection';
 
-import createMonsterHpContainer from 'Containers/createMonsterHpContainer';
 
 const styles = createStyleSheet({
   number: {
@@ -21,7 +23,7 @@ const styles = createStyleSheet({
   },
 });
 
-function MonsterHp({ monster, getHp, setHp }) {
+function MonsterHp({ setHp }) {
   return (
     <ListSection sections={4}>
       <ListSection sections={6}>

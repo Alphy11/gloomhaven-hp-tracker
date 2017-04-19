@@ -1,9 +1,6 @@
-import React from 'react';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import {
-  findValueIndex,
   addValue,
   updateValue,
   removeValue,
@@ -15,12 +12,12 @@ function createContainer(
   optionsFunction,
   dataPropName,
 ) {
-  return withData = graphql(initialQuery.query, {
+  return graphql(initialQuery.query, {
     name: dataPropName,
     options: optionsFunction,
     props: props => ({
       [dataPropName]: props[dataPropName],
-      subscribeToData: params => props[dataPropName].subscribeToMore({
+      subscribeToData: () => props[dataPropName].subscribeToMore({
         document: subscriptionQuery.query,
         variables: optionsFunction(props.ownProps),
         updateQuery: (prev, { subscriptionData }) => {

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const fragmentsAsString = function (fragments) {
+export function fragmentsAsString(fragments) {
   return fragments
           ? Object.values(fragments)
               .reduce(
@@ -8,16 +8,16 @@ export const fragmentsAsString = function (fragments) {
                   gql`${acc}
                    ${val}`, '')
           : '';
-};
+}
 
-export const queryWithFragments = function (fragments, query) {
+export function queryWithFragments(fragments, query) {
   return gql`${query}${fragmentsAsString(fragments)}`;
-};
+}
 
-export const allFragmentsAsQuery = function (fragments) {
+export function allFragmentsAsQuery(fragments) {
   return Object.keys(fragments)
           .reduce(
             (acc, key) =>
               `${acc}
               ...${key}`, '');
-};
+}

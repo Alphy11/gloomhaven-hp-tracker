@@ -1,12 +1,13 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import ListItem from './ListItem';
-import ListSection from './ListSection';
-import MonsterStatusEffects from '../../Shared/MonsterStatusEffects';
+
 import VCenter from 'Util/VCenter';
 import { css, createStyleSheet } from 'Util/css';
 
+import ListItem from './ListItem';
+import ListSection from './ListSection';
 import MonsterHp from './MonsterHp';
+import MonsterStatusEffects from '../../Shared/MonsterStatusEffects';
 
 const styles = createStyleSheet({
   centered: {
@@ -23,7 +24,6 @@ function MonsterListRow({ monster }) {
     number,
     hp,
     maxHp,
-    statusEffects,
   } = monster;
 
   return (

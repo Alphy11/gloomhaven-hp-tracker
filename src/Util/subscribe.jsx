@@ -1,12 +1,12 @@
-import gql from 'graphql-tag';
 import React from 'react';
-import * as queryTransforms from './queryTransforms';
+
 import {
-  findValueIndex,
   addValue,
   updateValue,
   removeValue,
 } from 'Util/list';
+
+import * as queryTransforms from './queryTransforms';
 
 // Keep as *, if imported with {}, we get an undefined error in subscribeToData.
 
@@ -14,30 +14,37 @@ function unsbuscribe(subscription) {
   subscription();
 }
 
-export function subscribeToData(objectName, relationName) {
-  return function (Wrappedcomponent) {
-    return class subscriptionHOC extends React.Component {
-      static get fragments() {
-        return Wrappedcomponent.fragments;
-      }
 
-      static get displayName() {
-        return `subscriptionHOC(${Wrappedcomponent.name}`;
-      }
+function subscriptionQuery(fragments, type, relationName) {
+  const fragmentsAsQuery = queryTransforms.allFragmentsAsQuery(fragments);
 
-      componentWillReceiveProps(newProps) {
-        setupSubscription(Wrappedcomponent, newProps, objectName, relationName);
+  const subscriptionTemplate =
+    `subscription ($id: ID!) {
+      ${type}(
+        filter: {
+          mutation_in: [CREATED, UPDATED, DELETED],
+          node: {
+            ${relationName}: {
+              id: $id
+            }
+          }
+        }
+      ) {
+        node {
+          ${fragmentsAsQuery}
+        },
+        mutation,
+        previousValues {
+          id
+        }
       }
-
-      render() {
-        return <Wrappedcomponent {...this.props} />;
-      }
-      };
-  };
+    }`;
+  return queryTransforms.queryWithFragments(fragments, subscriptionTemplate);
 }
 
+
 export default function setupSubscription(WrappedComponent, newProps, objectName, relationName) {
-  propsToOptions = WrappedComponent.propsToOptions || (props => props);
+  const propsToOptions = WrappedComponent.propsToOptions || (props => props);
   const query = subscriptionQuery(WrappedComponent.fragments, objectName, relationName);
 
   if (!newProps.data.loading) {
@@ -51,6 +58,7 @@ export default function setupSubscription(WrappedComponent, newProps, objectName
       }
     }
 
+    // eslint-disable-next-line no-param-reassign
     WrappedComponent.subscription = newProps.data.subscribeToMore({
       document: query,
       variables: { ...propsToOptions(newProps) },
@@ -82,34 +90,30 @@ export default function setupSubscription(WrappedComponent, newProps, objectName
         return retVal;
       },
 
+      // eslint-disable-next-line no-console
       onError: err => console.error(err),
     });
   }
 }
 
-function subscriptionQuery(fragments, type, relationName) {
-  const fragmentsAsQuery = queryTransforms.allFragmentsAsQuery(fragments);
-
-  const subscriptionTemplate =
-    `subscription ($id: ID!) {
-      ${type}(
-        filter: {
-          mutation_in: [CREATED, UPDATED, DELETED],
-          node: {
-            ${relationName}: {
-              id: $id
-            }
-          }
-        }
-      ) {
-        node {
-          ${fragmentsAsQuery}
-        },
-        mutation,
-        previousValues {
-          id
-        }
+export function subscribeToData(objectName, relationName) {
+  return function getSubscriptionHOC(Wrappedcomponent) {
+    return class subscriptionHOC extends React.Component {
+      static get fragments() {
+        return Wrappedcomponent.fragments;
       }
-    }`;
-  return queryTransforms.queryWithFragments(fragments, subscriptionTemplate);
+
+      static get displayName() {
+        return `subscriptionHOC(${Wrappedcomponent.name}`;
+      }
+
+      componentWillReceiveProps(newProps) {
+        setupSubscription(Wrappedcomponent, newProps, objectName, relationName);
+      }
+
+      render() {
+        return <Wrappedcomponent {...this.props} />;
+      }
+      };
+  };
 }

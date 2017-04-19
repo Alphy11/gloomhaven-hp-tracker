@@ -1,1 +1,3 @@
-export default from './MonsterTracker';
+import MonsterTracker from './MonsterTracker';
+
+export default MonsterTracker;

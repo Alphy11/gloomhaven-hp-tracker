@@ -15,7 +15,7 @@ const styles = createStyleSheet({
 });
 
 function Input(props) {
-  const { value, number, name } = props;
+  const { name } = props;
   return (
     <div {...css(styles.top)}>
       <div {...css(styles.label)}><Text>{name}</Text></div>

@@ -2,7 +2,6 @@ import React from 'react';
 import gql from 'graphql-tag';
 
 import Row from 'Util/Row';
-import Section from 'Util/Section';
 import { css, createStyleSheet } from 'Util/css';
 
 import MonsterHp from './MonsterHp';

@@ -1,6 +1,6 @@
 import React from 'react';
+import { createStyleSheet } from 'Util/css';
 import ListRow from './ListRow';
-import { css, createStyleSheet } from 'Util/css';
 
 const styles = createStyleSheet({
   item: {

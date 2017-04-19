@@ -1,10 +1,7 @@
 import React from 'react';
-import ListView from './ListView';
-import ListItem from './ListItem';
-import MonsterListView from './MonsterListView';
-
-import { css, createStyleSheet } from 'Util/css';
 import { withRouter } from 'react-router';
+import { css, createStyleSheet } from 'Util/css';
+import MonsterListView from './MonsterListView';
 
 const styles = createStyleSheet({
   top: {

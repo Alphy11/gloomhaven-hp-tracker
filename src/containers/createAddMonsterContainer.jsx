@@ -47,13 +47,8 @@ export default function createAddMonsterContainer(WrappedComponent) {
       this.shift = 1;
     }
 
-    createInputProps(name, isNumber) {
-      return {
-        onChange: value => this.trackValue(name, value),
-        number: isNumber,
-        value: this.getValue(name),
-        name,
-      };
+    getValue(name) {
+      return this.state[name] || '';
     }
 
     trackValue(name, value) {
@@ -63,12 +58,17 @@ export default function createAddMonsterContainer(WrappedComponent) {
       });
     }
 
-    getValue(name) {
-      return this.state[name] || '';
+    createInputProps(name, isNumber) {
+      return {
+        onChange: value => this.trackValue(name, value),
+        number: isNumber,
+        value: this.getValue(name),
+        name,
+      };
     }
 
     submit() {
-      const { hp, type, normals, elites } = this.state;
+      const { hp, normals, elites } = this.state;
       const monsterNumbers = this.props.group.monsters.map(m => m.number);
       const availableNumbers =
         Array(normals + elites + monsterNumbers.length).fill()
@@ -106,7 +106,7 @@ export default function createAddMonsterContainer(WrappedComponent) {
   return graphql(
     createMonster,
     {
-      props: ({ ownProps, mutate }) => ({
+      props: ({ mutate }) => ({
         createMonster({ elite, hp, number, monsterGroupId }) {
           return mutate({
             variables: { elite, hp, number, monsterGroupId },

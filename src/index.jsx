@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, Switch } from 'react-router';
+import { Router, Route, Switch } from 'react-router';
 import createHistory from 'history/createHashHistory';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
@@ -31,5 +31,5 @@ ReactDOM.render((
     </Router>
   </ApolloProvider>
   ),
-  document.getElementById('app'),
+  document.getElementById('app'), // eslint-disable-line no-undef
 );

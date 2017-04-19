@@ -1,9 +1,6 @@
 import React from 'react';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 import { css, createStyleSheet } from 'Util/css';
 import Input from './Input';
-import createAddMonsterContainer from 'Containers/createAddMonsterContainer';
 import Text from '../Text';
 
 const styles = createStyleSheet({
@@ -26,7 +23,7 @@ function AddMonsterMobile({ createInputProps, submit, close, group }) {
 
   return (
     <div>
-      <div {...css(styles.closeButton)} onClick={close}> <h3>X</h3> </div>
+      <button {...css(styles.closeButton)} onClick={close}> <h3>X</h3> </button>
       <div {...css(styles.row)}>
         <Text>{group.type}</Text>
       </div>

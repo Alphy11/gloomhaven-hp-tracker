@@ -68,7 +68,7 @@ export default function createMonsterHpContainer(WrappedComponent) {
   const MonsterHpContainerHOCWithChangeHp = graphql(
     updateMonsterHp,
     {
-      props: ({ ownProps, mutate }) => ({
+      props: ({ mutate }) => ({
         changeHp({ id }, hp) {
           return mutate({
             variables: { id, hp },
@@ -81,7 +81,7 @@ export default function createMonsterHpContainer(WrappedComponent) {
   return graphql(
     deleteMonster,
     {
-      props: ({ ownProps, mutate }) => ({
+      props: ({ mutate }) => ({
         deleteMonster(id) {
           return mutate({
             variables: { id },

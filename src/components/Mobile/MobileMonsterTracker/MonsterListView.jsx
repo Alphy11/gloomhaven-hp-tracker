@@ -1,19 +1,12 @@
 import gql from 'graphql-tag';
 import React from 'react';
+
+import AllMonsterGroupsContainer from 'Containers/allMonsterGroupsContainer';
+
 import ListView from './ListView';
-import ListSection from './ListSection';
 import MonsterGroupList from './MonsterGroupList';
 import AddMonsterButton from './AddMonsterButton';
-import AllMonsterGroupsContainer from 'Containers/AllMonsterGroupsContainer';
 import AddMonster from '../AddMonster';
-
-import { css, createStyleSheets } from 'Util/css';
-
-const styles = {
-  hidden: {
-    display: 'none',
-  },
-};
 
 class MonsterListView extends React.Component {
   constructor(props, context) {

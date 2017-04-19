@@ -15,7 +15,7 @@ const styles = createStyleSheet({
 function ListSection({ children, sections }) {
   const dynamicStyles = createStyleSheet({
     sectionWidth: {
-      width: `${sections / totalSections * 100}%`,
+      width: `${(sections / totalSections) * 100}%`,
     },
   });
 

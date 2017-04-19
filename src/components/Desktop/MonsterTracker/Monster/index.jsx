@@ -1,1 +1,4 @@
-export default from './Monster';
+import Monster from './Monster';
+
+export default Monster;
+
