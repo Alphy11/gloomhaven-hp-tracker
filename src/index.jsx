@@ -2,25 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router';
 import createHistory from 'history/createHashHistory';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+import { createStore } from 'redux';
+
 import MonsterTracker from './components/Desktop/MonsterTracker';
 import MobileMonsterTracker from './components/Mobile/MobileMonsterTracker';
-import { uri, wsUri } from '../endpoint';
 import AddMonster from './components/Desktop/AddMonster';
+import reducer from './reducers';
+import client from './client';
 
-const networkInterface = createNetworkInterface({ uri });
-const wsClient = new SubscriptionClient(wsUri);
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
-  wsClient,
-);
-
-const client = new ApolloClient({ networkInterface: networkInterfaceWithSubscriptions });
+const store = createStore(reducer);
 
 ReactDOM.render((
-  <ApolloProvider client={client}>
+  <ApolloProvider store={store} client={client}>
     <Router history={createHistory()}>
       <Switch>
         <Route path="/nonmobile/add" component={AddMonster} />
