@@ -40,6 +40,8 @@ module.exports = {
     alias: {
       Util: path.join(__dirname, 'src', 'Util'),
       Containers: path.join(__dirname, 'src', 'containers'),
+      Data: path.join(__dirname, 'src', 'data'),
+      Actions: path.join(__dirname, 'src', 'actions'),
     },
     extensions: ['*', '.js', '.jsx'],
   },

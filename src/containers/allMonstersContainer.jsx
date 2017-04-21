@@ -2,45 +2,33 @@ import React from 'react';
 import gql from 'graphql-tag';
 import createContainer, { Query } from './createContainer';
 
-function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
+function AllMonstersContainer(WrappedComponent) {
   const MONSTER_QUERY = new Query(gql`
-    query monsters($id: ID!) {
-      allMonsters: allMonsters(
-        filter: {
-          monsterGroup: {
-            id: $id
-          }
-        }) {
+    query monsters {
+      allMonsters {
           id
-          ...${fragmentName}
+          number
       }
-    }
-    ${fragment}`,
+    }`,
     'allMonsters');
 
   const MONSTER_SUBSCRIPTION = new Query(gql`
-    subscription ($id: ID!) {
+    subscription {
       Monster(
         filter: {
-          mutation_in: [CREATED, UPDATED, DELETED],
-          node: {
-            monsterGroup: {
-              id: $id
-            }
+          mutation_in: [CREATED, UPDATED, DELETED]
           }
-        }
       ) {
         node {
           id,
-          ...${fragmentName}
+          number
         },
         mutation,
         previousValues {
           id
         }
       }
-    }
-    ${fragment}`,
+    }`,
     'Monster');
 
 
@@ -60,13 +48,13 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
   );
 
 
-  class MonsterGroupContainerHOC extends React.Component {
+  class AllMonstersContainerHOC extends React.Component {
     static get fragments() {
       return WrappedComponent.fragments;
     }
 
     static get displayName() {
-      return `MonsterGroupContainerHOC(${WrappedComponent.name})`;
+      return `AllMonstersContainerHOC(${WrappedComponent.name})`;
     }
 
     componentWillMount() {
@@ -77,10 +65,7 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
 
     render() {
       const monsterDataProp = this.props[dataPropName];
-      if (
-        monsterDataProp.loading ||
-        !(monsterDataProp.allMonsters &&
-        monsterDataProp.allMonsters.length > 0)) {
+      if (monsterDataProp.loading) {
         return null;
       }
 
@@ -92,7 +77,7 @@ function MonsterGroupContainer(WrappedComponent, fragment, fragmentName) {
     }
   }
 
-  return withData(MonsterGroupContainerHOC);
+  return withData(AllMonstersContainerHOC);
 }
 
-export default MonsterGroupContainer;
+export default AllMonstersContainer;

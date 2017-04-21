@@ -1,8 +1,12 @@
 import React from 'react';
+import gql from 'graphql-tag';
 import { Redirect } from 'react-router-dom';
 import { css, createStyleSheet } from 'Util/css';
 import createAddMonsterContainer from 'Containers/createAddMonsterContainer';
+import AllMonsterGroupsContainer from 'Containers/allMonsterGroupsContainer';
+import AllMonstersContainer from 'Containers/allMonstersContainer';
 import Input from './Input';
+import Text from '../Text';
 
 const styles = createStyleSheet({
   submit: {
@@ -25,9 +29,12 @@ class AddMonster extends React.Component {
     this.setState({ ...this.state, close: true });
   }
 
-  submit() {
-    this.props.submit();
-    this.close();
+  submit(event) {
+    if (this.props.submit(event)) {
+      this.close();
+    } else {
+      this.setState({ ...this.state, invalidType: true });
+    }
   }
 
   render() {
@@ -37,10 +44,13 @@ class AddMonster extends React.Component {
 
     return (
       <div>
-        <Input {...this.props.createInputProps('Type', false)} />
-        <Input {...this.props.createInputProps('elite', false)} />
-        <Input {...this.props.createInputProps('normal', false)} />
-        <Input {...this.props.createInputProps('hp', false)} />
+        {this.state.invalidType
+          && <Text type="error" >Invlid type, please use camel case(eg. BanditArcher)</Text>}
+        <Input {...this.props.createInputProps('type', false)} />
+        <Input {...this.props.createInputProps('elites', true)} />
+        <Input {...this.props.createInputProps('normals', true)} />
+        <Input {...this.props.createInputProps('hp', true)} />
+
         <button {...css(styles.submit)} onClick={this.submit}>
           Submit
         </button>
@@ -48,4 +58,14 @@ class AddMonster extends React.Component {
   }
 }
 
-export default createAddMonsterContainer(AddMonster);
+const allMonsterFragment = gql`
+  fragment allMonsterFragment on MonsterGroup {
+    id,
+    type
+  }
+`;
+
+const AddMonsterWithData = createAddMonsterContainer(AddMonster);
+const AddMonsterwithGroups = AllMonsterGroupsContainer(AddMonsterWithData, allMonsterFragment, 'allMonsterFragment');
+const AddMonsterWithMonsters = AllMonstersContainer(AddMonsterwithGroups);
+export default AddMonsterWithMonsters;

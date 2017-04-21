@@ -7,10 +7,20 @@ const styles = createStyleSheet({
     fontWeight: 'bold',
     float: 'left',
   },
+  error: {
+    fontSize: '16px',
+    color: 'red',
+    float: 'left',
+  },
 });
 
-function Text({ children }) {
-  return <div {...css(styles.text)}>{children}</div>;
+function Text({ type, children }) {
+  const style = styles[type];
+  return <div {...css(style)}>{children}</div>;
 }
+
+Text.defaultProps = {
+  type: 'text',
+};
 
 export default Text;

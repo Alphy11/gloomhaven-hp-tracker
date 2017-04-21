@@ -1,6 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import MonsterNames from 'Data/monsterNames';
+import createAddMonsterGroupContainer from './createAddMonsterGroupContainer';
 
 const createMonster = gql`
   mutation addMonster(
@@ -43,8 +45,6 @@ export default function createAddMonsterContainer(WrappedComponent) {
 
       this.createInputProps = this.createInputProps.bind(this);
       this.submit = this.submit.bind(this);
-      this.close = this.close.bind(this);
-      this.shift = 1;
     }
 
     getValue(name) {
@@ -67,29 +67,44 @@ export default function createAddMonsterContainer(WrappedComponent) {
       };
     }
 
-    submit() {
-      const { hp, normals, elites } = this.state;
-      const monsterNumbers = this.props.group.monsters.map(m => m.number);
+    submit(event) {
+      const { hp, normals, elites, type } = this.state;
+      if (!MonsterNames.includes(type)) {
+        event.preventDefault();
+        return false;
+      }
+      const monsterNumbers = this.props.monsters.map(m => m.number);
       const availableNumbers =
         Array(normals + elites + monsterNumbers.length).fill()
           .map((_, idx) => idx).filter(v => !monsterNumbers.includes(v));
-      this.shift = 1;
-      Array(normals + elites).fill().forEach(
-        (val, index) =>
-          this.props.createMonster({
+
+      const group = this.props.monsterGroups.find(group => group.type === type);
+
+      const monsters = Array(normals + elites).fill().map(
+        (val, index) => (
+          group
+          ? ({
             hp: hp * 1,
             maxHp: hp * 1,
             number: availableNumbers[index],
-            monsterGroupId: this.props.group.id,
-            elite: index > normals - 1,
-          }),
+            monsterGroupId: group.id,
+            elite: index > normals - 1 })
+          : ({
+            hp: hp * 1,
+            maxHp: hp * 1,
+            number: availableNumbers[index],
+            elite: index > normals - 1 })),
       );
 
-      this.close();
-    }
+      if (group) {
+        monsters.forEach((monster) => {
+          this.props.createMonster(monster);
+        });
+      } else {
+        this.props.createMonsterGroup(type, monsters);
+      }
 
-    close() {
-      this.props.toggle(false);
+      return true;
     }
 
     render() {
@@ -103,7 +118,7 @@ export default function createAddMonsterContainer(WrappedComponent) {
     }
   }
 
-  return graphql(
+  return createAddMonsterGroupContainer(graphql(
     createMonster,
     {
       props: ({ mutate }) => ({
@@ -114,5 +129,5 @@ export default function createAddMonsterContainer(WrappedComponent) {
         },
       }),
     },
-  )(AddMonsterContainerHOC);
+  )(AddMonsterContainerHOC));
 }
